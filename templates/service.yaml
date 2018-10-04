@@ -98,15 +98,15 @@ Resources:
       ContainerDefinitions:
         - Name: simple-app
           Image: amazon/amazon-ecs-sample
-          EntryPoint:
-            - /usr/sbin/apache2
-            - -D
-            - FOREGROUND
+          # EntryPoint:
+          #   - /usr/sbin/apache2
+          #   - -D
+          #   - FOREGROUND
           Essential: true
           Memory: 256
           MountPoints:
             - SourceVolume: my-vol
-              ContainerPath: /var/www/my-vol
+              ContainerPath: /usr/share/nginx/html/
           PortMappings:
             - ContainerPort: 80
           LogConfiguration:
@@ -125,7 +125,7 @@ Resources:
           VolumesFrom:
             - SourceContainer: simple-app
           Command:
-            - /bin/sh -c "while true; do /bin/date > /var/www/my-vol/date; sleep 1; done"
+            - /bin/sh -c "while true; do /bin/date > /usr/share/nginx/html/date; sleep 1; done"
       Volumes:
         - Name: my-vol
 
